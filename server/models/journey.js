@@ -1,0 +1,10 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const journeySchema = new Schema({
+  title: String,
+  description: String,
+  authorId: String
+})
+
+module.exports = mongoose.model('Journey', journeySchema)

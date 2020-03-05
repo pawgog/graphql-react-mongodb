@@ -10,8 +10,7 @@ class JourneyList extends Component {
   render() {
     const JourneyDataList = () => {
       const { loading, error, data } = useQuery(getJourneysQuery);
-      console.log(data);
-      
+
       if (loading) return <p>Loading...</p>
       if (!data) return <></>
       if (error) return `Error! ${error}`;
