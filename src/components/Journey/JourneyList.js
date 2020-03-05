@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { getJourneysQuery } from '../queries/queries';
+import { getJourneysQuery } from '../../queries/queries';
 import JourneysDetails from './JourneyDetails';
 
 class JourneyList extends Component {
@@ -26,10 +26,13 @@ class JourneyList extends Component {
 
     return (
       <div className="journey-list">
-        <ul>
-          <JourneyDataList/>
-        </ul>
-        <JourneysDetails journeyId={this.state.journeyId} />
+        <h1>Journeys</h1>
+        <div className="journey-list__content">
+          <ul>
+            <JourneyDataList/>
+          </ul>
+          <JourneysDetails journeyId={this.state.journeyId} />
+        </div>
       </div> 
     )   
   }

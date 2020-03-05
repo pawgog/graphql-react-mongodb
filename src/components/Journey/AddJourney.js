@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { getAuthorsQuery, getJourneysQuery, addJourneyMutation } from '../queries/queries';
+import { getAuthorsQuery, getJourneysQuery, addJourneyMutation } from '../../queries/queries';
 
 const AuthorDataList = () => {
   const { data } = useQuery(getAuthorsQuery);
@@ -22,7 +22,7 @@ const AddJourney = () => {
     const [addJourney] = useMutation(addJourneyMutation);
     return (
       <>
-        <form onSubmit={e => {
+        <form className="journey-new-item" onSubmit={e => {
           e.preventDefault();
           
           addJourney({ variables: { 
@@ -33,22 +33,22 @@ const AddJourney = () => {
           refetchQueries: [{ query: getJourneysQuery }]
         });
         }}>
-          <div>
+          <div className="journey-new-item__block">
             <label>Journey title:</label>
             <input type="text" ref={node => {title = node;}}/>
           </div>
-          <div>
-            <label>Description:</label>
-            <textarea rows="4" cols="40" ref={node => {description = node;}}/>
-          </div>
-          <div>
+          <div className="journey-new-item__block">
             <label>Author:</label>
             <select  ref={node => {authorId = node;}}>
               <option>Select author</option>
               <AuthorDataList />
             </select>
           </div>
-          <button type="submit">Add</button>
+          <div className="journey-new-item__block">
+            <label>Description:</label>
+            <textarea rows="6" cols="35" ref={node => {description = node;}}/>
+          </div>
+          <button type="submit">+</button>
         </form>
       </>
     )
