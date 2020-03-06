@@ -1,0 +1,3 @@
+@mixin for-tablet-down {
+  @media (max-width: 768px) { @content; }
+}

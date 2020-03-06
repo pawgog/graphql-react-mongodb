@@ -1,5 +1,7 @@
 .journey {
   &-list {
+    overflow: hidden;
+
     & > h1 {
       width: 60%;
       text-align: center;
@@ -8,6 +10,8 @@
     &__content {
       display: flex;
       flex-direction: row;
+      overflow: auto;
+      height: 350px;
 
       & > ul {
         display: flex;
@@ -45,20 +49,35 @@
     height: 100%;
     top: 0;
     right: 0;
-    padding: 8% 0px 0px 35px;
+    padding: 12% 0 0 8%;
     display: flex;
     color: #fff;
     background-color: #6e6c6c;
     flex-direction: column;
+
+    & p,
+    & li {
+      color: #eee;
+    }
+
+    & h2,
+    & h4 {
+      margin-bottom: 5px;
+    }
+
+    & h5 {
+      margin: 0 0 1.3em 0;
+    }
   }
 
   &-new-item {
     position: fixed;
     width: 60%;
-    min-height: 290px;
+    min-height: 300px;
     bottom: 0;
     padding: 20px 0;
     border: 1px solid #6e6c6c;
+    border-bottom: none;
     background-color: #eee;
 
     &__block {
@@ -66,9 +85,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      padding: 5px 10px 5px 50px;
-      padding-left: 50px;
-      padding-right: 10px;
+      padding: 5px 20px 5px 50px;
 
       & label {
         position: absolute;
@@ -105,6 +122,34 @@
         transform: scale(1.1);
         box-shadow: 3px 5px 6px rgba(0,0,0,0.3);
       }
+    }
+  }
+}
+
+@include for-tablet-down {
+  .journey {
+    &-list {
+      & > h1 {
+        width: 100%;
+      }
+
+      &__content {
+        flex-direction: column;
+        height: auto;
+
+        & > ul {
+          width: 100%;
+        }
+      }
+    }
+    &-details {
+      position: relative;
+      width: 100%;
+      padding: 10%;
+    }
+    &-new-item {
+      position: relative;
+      width: 100%;
     }
   }
 }

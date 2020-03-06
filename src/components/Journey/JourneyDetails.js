@@ -14,9 +14,9 @@ const JourneyDetails = ({ journeyId }) => {
   const { title, description, author } = data.journey
   return (
     <div className="journey-details">
-      <h3>{title}</h3>
+      <h2>{title}</h2>
+      <h5>({author.name})</h5>
       <p>{description}</p>
-      <p>{author.name}</p>
       <h4>All author journeys:</h4>
       <ol>
         {author.journeys.map(item => {

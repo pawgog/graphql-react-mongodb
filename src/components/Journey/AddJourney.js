@@ -32,15 +32,18 @@ const AddJourney = () => {
           },
           refetchQueries: [{ query: getJourneysQuery }]
         });
+          title.value = '';
+          description.value = '';
+          authorId.selectedIndex  = 0;
         }}>
           <div className="journey-new-item__block">
             <label>Journey title:</label>
-            <input type="text" ref={node => {title = node;}}/>
+            <input type="text" ref={node => {title = node;}} required/>
           </div>
           <div className="journey-new-item__block">
             <label>Author:</label>
-            <select  ref={node => {authorId = node;}}>
-              <option>Select author</option>
+            <select ref={node => {authorId = node;}} required>
+              <option value="">Select author</option>
               <AuthorDataList />
             </select>
           </div>
