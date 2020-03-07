@@ -1,29 +1,22 @@
 import React, { Component } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { getJourneysQuery, removeJourneyMutation } from '../../queries/queries';
-import JourneysDetails from './JourneyDetails';
+import { useQuery } from '@apollo/react-hooks';
+import { getJourneysQuery } from '../../queries/queries';
+import JourneyDetails from './JourneyDetails';
+import RemoveJourney from './RemoveJourney';
 
 class JourneyList extends Component {
   state = {
     journeyId: ''
   };
 
+  setEmptyJourneyId = () => {
+    this.setState({
+      journeyId: ''
+    });
+  };
+
   render() {
     const JourneyDataList = () => {
-      const [removeJourney] = useMutation(removeJourneyMutation, {
-        update(cache, { data: { removeJourney } }) {
-          const { journeys } = cache.readQuery({ query: getJourneysQuery });
-          const newData = {
-            journeys: journeys.filter(t => t.id !== removeJourney.id)
-          };
-
-          cache.writeQuery({
-            query: getJourneysQuery,
-            data: newData
-          });
-        }
-      });
-
       const { loading, error, data } = useQuery(getJourneysQuery);
 
       if (loading) return <p>Loading...</p>;
@@ -41,19 +34,10 @@ class JourneyList extends Component {
                 }}
               >
                 {journey.title}
-                <button
-                  type="button"
-                  onClick={e => {
-                    e.stopPropagation();
-                    removeJourney({
-                      variables: {
-                        id: journey.id
-                      }
-                    });
-                  }}
-                >
-                  X
-                </button>
+                <RemoveJourney
+                  setEmptyJourneyId={this.setEmptyJourneyId}
+                  journeyId={journey.id}
+                />
               </li>
             );
           })}
@@ -68,7 +52,7 @@ class JourneyList extends Component {
           <ul>
             <JourneyDataList />
           </ul>
-          <JourneysDetails journeyId={this.state.journeyId} />
+          <JourneyDetails journeyId={this.state.journeyId} />
         </div>
       </div>
     );

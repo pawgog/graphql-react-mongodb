@@ -13,7 +13,7 @@ const JourneyDetails = ({ journeyId }) => {
         <p>Loading journey...</p>
       </div>
     );
-  if (!data)
+  if (!data || journeyId === '')
     return (
       <div className="journey-details">
         <p>Please select journey...</p>
