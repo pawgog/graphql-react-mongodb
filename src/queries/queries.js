@@ -46,6 +46,16 @@ const addJourneyMutation = gql`
   }
 `;
 
+const updateJourneyMutation = gql`
+  mutation($id: ID!, $title: String!, $description: String!) {
+    updateJourney(title: $title, description: $description) {
+      title
+      description
+      id
+    }
+  }
+`;
+
 const removeJourneyMutation = gql`
   mutation($id: ID!) {
     removeJourney(id: $id) {
@@ -59,5 +69,6 @@ export {
   getAuthorsQuery,
   getJourneysQuery,
   addJourneyMutation,
+  updateJourneyMutation,
   removeJourneyMutation
 };

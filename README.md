@@ -1,6 +1,6 @@
-# React application with GraphQL and MongoDB as backend.
+# React application with GraphQL and MongoDB as database.
 
-Application base in React and GraphQL environments and MongoDB as backend.
+Application base in React and GraphQL environments and MongoDB as database.
 Project displays list of journeys with title and description and basic functionality like adding updating and removing items.
 
 ### Instalation
