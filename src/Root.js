@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from '@apollo/react-hooks'
+import { ApolloProvider } from '@apollo/react-hooks';
 import JourneyList from './components/Journey/JourneyList';
 import AddJourney from './components/Journey/AddJourney';
 import './styles/_index.scss';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql' 
+  uri: 'http://localhost:4000/graphql'
 });
 
 class Root extends Component {
@@ -14,11 +14,11 @@ class Root extends Component {
     return (
       <ApolloProvider client={client}>
         <section>
-        <JourneyList />
-        <AddJourney /> 
-        </section>        
+          <JourneyList />
+          <AddJourney />
+        </section>
       </ApolloProvider>
-    );    
+    );
   }
 }
 
