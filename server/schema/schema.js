@@ -2,7 +2,7 @@ const graphql = require('graphql');
 const Journey = require('../models/journey');
 const Author = require('../models/author');
 
-const { 
+const {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
@@ -21,7 +21,7 @@ const JourneyType = new GraphQLObjectType({
     author: {
       type: AuthorType,
       resolve(parent, args) {
-        return Author.findById(parent.authorId)
+        return Author.findById(parent.authorId);
       }
     }
   })
@@ -36,14 +36,14 @@ const AuthorType = new GraphQLObjectType({
     journeys: {
       type: GraphQLList(JourneyType),
       resolve(parent, args) {
-        return Journey.find({authorId: parent.id})
+        return Journey.find({ authorId: parent.id });
       }
-    },
+    }
   })
 });
 
 const RootQuery = new GraphQLObjectType({
-  name : 'RootQueryType',
+  name: 'RootQueryType',
   fields: {
     journey: {
       type: JourneyType,
@@ -61,7 +61,7 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return Author.findById(args.id);
-      }      
+      }
     },
     journeys: {
       type: new GraphQLList(JourneyType),
@@ -96,25 +96,38 @@ const Mutation = new GraphQLObjectType({
       }
     },
     addJourney: {
-      type:JourneyType,
+      type: JourneyType,
       args: {
         title: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) },
-        authorId: { type: new GraphQLNonNull(GraphQLID) },
+        authorId: { type: new GraphQLNonNull(GraphQLID) }
       },
-      resolve(parent, args) {
+      resolve(parent, { title, description, authorId }) {
         let journey = new Journey({
-          title: args.title,
-          description: args.description,
-          authorId: args.authorId
+          title,
+          description,
+          authorId
         });
         return journey.save();
       }
+    },
+    removeJourney: {
+      type: JourneyType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) }
+      },
+      resolve(parent, { id }) {
+        let removeJourney = Journey.findByIdAndRemove(id).exec();
+        if (!removeJourney) {
+          throw new Error('Error, Cannot Delete!');
+        }
+        return removeJourney;
+      }
     }
   }
-})
+});
 
 module.exports = new GraphQLSchema({
   query: RootQuery,
   mutation: Mutation
-})
+});

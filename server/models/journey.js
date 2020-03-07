@@ -5,6 +5,6 @@ const journeySchema = new Schema({
   title: String,
   description: String,
   authorId: String
-})
+});
 
-module.exports = mongoose.model('Journey', journeySchema)
+module.exports = mongoose.model('Journey', journeySchema);

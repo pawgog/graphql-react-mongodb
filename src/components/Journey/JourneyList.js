@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import { getJourneysQuery } from '../../queries/queries';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { getJourneysQuery, removeJourneyMutation } from '../../queries/queries';
 import JourneysDetails from './JourneyDetails';
 
 class JourneyList extends Component {
@@ -10,6 +10,20 @@ class JourneyList extends Component {
 
   render() {
     const JourneyDataList = () => {
+      const [removeJourney] = useMutation(removeJourneyMutation, {
+        update(cache, { data: { removeJourney } }) {
+          const { journeys } = cache.readQuery({ query: getJourneysQuery });
+          const newData = {
+            journeys: journeys.filter(t => t.id !== removeJourney.id)
+          };
+
+          cache.writeQuery({
+            query: getJourneysQuery,
+            data: newData
+          });
+        }
+      });
+
       const { loading, error, data } = useQuery(getJourneysQuery);
 
       if (loading) return <p>Loading...</p>;
@@ -27,6 +41,19 @@ class JourneyList extends Component {
                 }}
               >
                 {journey.title}
+                <button
+                  type="button"
+                  onClick={e => {
+                    e.stopPropagation();
+                    removeJourney({
+                      variables: {
+                        id: journey.id
+                      }
+                    });
+                  }}
+                >
+                  X
+                </button>
               </li>
             );
           })}

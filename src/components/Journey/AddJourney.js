@@ -39,7 +39,6 @@ const AddJourney = () => {
         className="journey-new-item"
         onSubmit={e => {
           e.preventDefault();
-
           addJourney({
             variables: {
               title: title.value,
