@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { getJourneyQuery } from '../../queries/queries';
+import UpdateJourney from './UpdateJourney';
 
 const JourneyDetails = ({ journeyId }) => {
   const { loading, error, data } = useQuery(getJourneyQuery, {
@@ -23,16 +24,25 @@ const JourneyDetails = ({ journeyId }) => {
 
   const { title, description, author } = data.journey;
   return (
-    <div className="journey-details">
-      <h2>{title}</h2>
-      <h5>({author.name})</h5>
-      <p>{description}</p>
-      <h4>All author journeys:</h4>
-      <ol>
-        {author.journeys.map(item => {
-          return <li key={item.id}>{item.title}</li>;
-        })}
-      </ol>
+    <div>
+      <div className="journey-details">
+        <div className="journey-details__content">
+          <h2>{title}</h2>
+          <h5>({author.name})</h5>
+          <p>{description}</p>
+          <h4>All author journeys:</h4>
+          <ol>
+            {author.journeys.map(item => {
+              return <li key={item.id}>{item.title}</li>;
+            })}
+          </ol>
+        </div>
+      </div>
+      <UpdateJourney
+        id={journeyId}
+        titleJourney={title}
+        descriptionJourney={description}
+      />
     </div>
   );
 };

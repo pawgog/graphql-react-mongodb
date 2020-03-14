@@ -59,32 +59,40 @@
   }
   &-details {
     position: fixed;
+    flex-direction: column;
     width: 40%;
     height: 100%;
     top: 0;
     right: 0;
-    padding: 12% 0 0 8%;
+    padding: 5% 0 0 5%;
     display: flex;
     color: #fff;
     background-color: #6e6c6c;
-    flex-direction: column;
+    z-index: 1;
 
-    & p,
-    & li {
-      color: #eee;
-    }
+    &__content {
+      height: 55%;
+      padding-right: 5%;
+      overflow: auto;
 
-    & h2,
-    & h4 {
-      margin-bottom: 5px;
-    }
+      & p,
+      & li {
+        color: #eee;
+      }
 
-    & h5 {
-      margin: 0 0 1.3em 0;
+      & h2,
+      & h4 {
+        margin-bottom: 5px;
+      }
+
+      & h5 {
+        margin: 0 0 1.3em 0;
+      }
     }
   }
 
-  &-new-item {
+  &-new-item,
+  &-update-item {
     position: fixed;
     width: 60%;
     min-height: 300px;
@@ -93,6 +101,7 @@
     border: 1px solid #6e6c6c;
     border-bottom: none;
     background-color: #eee;
+    z-index: 1;
 
     &__block {
       position: relative;
@@ -119,22 +128,37 @@
     }
 
     & button {
-      position: absolute;
-      left: 10%;
-      bottom: 15%;
-      padding: 10px 16px;
-      font-size: 20px;
-      border: 1px solid #6e6c6c;
-      border-radius: 50px;
-      color: #fff;
-      background-color: #6e6c6c;
-      box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
-      cursor: pointer;
-      transition: all 0.2s ease-in;
+      @include button-style;
+    }
+  }
+  &-update-item {
+    &__block {
+      align-items: flex-start;
 
-      &:hover {
-        transform: scale(1.1);
-        box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.3);
+      & label {
+        position: relative;
+        left: 0;
+      }
+    }
+    & button {
+      bottom: 10%;
+      left: 28%;
+    }
+
+    &__button {
+      position: absolute;
+      width: 40%;
+      height: 100%;
+      bottom: 0;
+
+      & button {
+        @include button-style;
+        position: absolute;
+        left: 30%;
+        bottom: 20%;
+        color: #6e6c6c;
+        background-color: #eee;
+        z-index: 1;
       }
     }
   }
@@ -161,9 +185,33 @@
       width: 100%;
       padding: 10%;
     }
-    &-new-item {
+    &-new-item,
+    &-update-item {
       position: relative;
       width: 100%;
+    }
+    &-update-item {
+      &__block {
+        & input,
+        & textarea {
+          width: 90%;
+          max-width: 90%;
+        }
+      }
+      &__button {
+        position: relative;
+        width: 100%;
+        padding: 15%;
+        background-color: #6e6c6c;
+
+        & button {
+          left: 25%;
+          bottom: 30%;
+        }
+      }
+      & button {
+        left: 35%;
+      }
     }
   }
 }

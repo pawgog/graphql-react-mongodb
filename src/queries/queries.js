@@ -48,7 +48,7 @@ const addJourneyMutation = gql`
 
 const updateJourneyMutation = gql`
   mutation($id: ID!, $title: String!, $description: String!) {
-    updateJourney(title: $title, description: $description) {
+    updateJourney(id: $id, title: $title, description: $description) {
       title
       description
       id

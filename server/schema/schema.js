@@ -111,6 +111,24 @@ const Mutation = new GraphQLObjectType({
         return journey.save();
       }
     },
+    updateJourney: {
+      type: JourneyType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        description: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parent, { id, title, description }) {
+        let updateJourney = Journey.findByIdAndUpdate(id, {
+          title,
+          description
+        }).exec();
+        if (!updateJourney) {
+          throw new Error('Error, Cannot Delete!');
+        }
+        return updateJourney;
+      }
+    },
     removeJourney: {
       type: JourneyType,
       args: {
