@@ -22,25 +22,32 @@ class JourneyList extends Component {
       if (loading) return <p>Loading...</p>;
       if (!data) return <></>;
       if (error) return `Error! ${error}`;
+      console.log(data.journeys);
 
       return (
         <>
-          {data.journeys.map(journey => {
-            return (
-              <li
-                key={journey.id}
-                onClick={() => {
-                  this.setState({ journeyId: journey.id });
-                }}
-              >
-                {journey.title}
-                <RemoveJourney
-                  setEmptyJourneyId={this.setEmptyJourneyId}
-                  journeyId={journey.id}
-                />
-              </li>
-            );
-          })}
+          {data.journeys
+            .sort(
+              ({ date: previousDate }, { date: nextDate }) =>
+                new Date(previousDate) - new Date(nextDate)
+            )
+            .map(journey => {
+              return (
+                <li
+                  key={journey.id}
+                  onClick={() => {
+                    this.setState({ journeyId: journey.id });
+                  }}
+                >
+                  <span>{journey.date}</span>
+                  {journey.title}
+                  <RemoveJourney
+                    setEmptyJourneyId={this.setEmptyJourneyId}
+                    journeyId={journey.id}
+                  />
+                </li>
+              );
+            })}
         </>
       );
     };

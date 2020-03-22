@@ -22,11 +22,12 @@ const JourneyDetails = ({ journeyId }) => {
     );
   if (error) return `Error! ${error}`;
 
-  const { title, description, author } = data.journey;
+  const { date, title, description, author } = data.journey;
   return (
     <div>
       <div className="journey-details">
         <div className="journey-details__content">
+          <span>{date}</span>
           <h2>{title}</h2>
           <h5>({author.name})</h5>
           <p>{description}</p>
@@ -40,6 +41,7 @@ const JourneyDetails = ({ journeyId }) => {
       </div>
       <UpdateJourney
         id={journeyId}
+        dateJourney={date}
         titleJourney={title}
         descriptionJourney={description}
       />

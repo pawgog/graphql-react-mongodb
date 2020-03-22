@@ -3,6 +3,7 @@ import { gql } from 'apollo-boost';
 const getJourneysQuery = gql`
   {
     journeys {
+      date
       title
       id
     }
@@ -22,6 +23,7 @@ const getJourneyQuery = gql`
   query($id: ID) {
     journey(id: $id) {
       id
+      date
       title
       description
       author {
@@ -38,8 +40,18 @@ const getJourneyQuery = gql`
 `;
 
 const addJourneyMutation = gql`
-  mutation($title: String!, $description: String!, $authorId: ID!) {
-    addJourney(title: $title, description: $description, authorId: $authorId) {
+  mutation(
+    $date: String!
+    $title: String!
+    $description: String!
+    $authorId: ID!
+  ) {
+    addJourney(
+      date: $date
+      title: $title
+      description: $description
+      authorId: $authorId
+    ) {
       title
       id
     }
@@ -47,8 +59,14 @@ const addJourneyMutation = gql`
 `;
 
 const updateJourneyMutation = gql`
-  mutation($id: ID!, $title: String!, $description: String!) {
-    updateJourney(id: $id, title: $title, description: $description) {
+  mutation($id: ID!, $date: String!, $title: String!, $description: String!) {
+    updateJourney(
+      id: $id
+      date: $date
+      title: $title
+      description: $description
+    ) {
+      date
       title
       description
       id

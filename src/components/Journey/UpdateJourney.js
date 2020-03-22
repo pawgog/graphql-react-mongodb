@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { getJourneysQuery, updateJourneyMutation } from '../../queries/queries';
 
-const UpdateJourney = ({ id, titleJourney, descriptionJourney }) => {
+const UpdateJourney = ({
+  id,
+  dateJourney,
+  titleJourney,
+  descriptionJourney
+}) => {
+  let date = dateJourney;
   let title = titleJourney;
   let description = descriptionJourney;
   const [updateJourney] = useMutation(updateJourneyMutation);
@@ -18,6 +24,7 @@ const UpdateJourney = ({ id, titleJourney, descriptionJourney }) => {
             updateJourney({
               variables: {
                 id,
+                date: date.value,
                 title: title.value,
                 description: description.value
               },
@@ -26,6 +33,17 @@ const UpdateJourney = ({ id, titleJourney, descriptionJourney }) => {
             changeBlockDisplay(false);
           }}
         >
+          <div className="journey-update-item__block">
+            <label>Journey date:</label>
+            <input
+              type="date"
+              ref={node => {
+                date = node;
+              }}
+              defaultValue={date}
+              required
+            />
+          </div>
           <div className="journey-update-item__block">
             <label>Journey title:</label>
             <input

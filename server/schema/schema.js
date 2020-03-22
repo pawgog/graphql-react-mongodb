@@ -16,6 +16,7 @@ const JourneyType = new GraphQLObjectType({
   name: 'Journey',
   fields: () => ({
     id: { type: GraphQLID },
+    date: { type: GraphQLString },
     title: { type: GraphQLString },
     description: { type: GraphQLString },
     author: {
@@ -98,12 +99,14 @@ const Mutation = new GraphQLObjectType({
     addJourney: {
       type: JourneyType,
       args: {
+        date: { type: new GraphQLNonNull(GraphQLString) },
         title: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) },
         authorId: { type: new GraphQLNonNull(GraphQLID) }
       },
-      resolve(parent, { title, description, authorId }) {
+      resolve(parent, { date, title, description, authorId }) {
         let journey = new Journey({
+          date,
           title,
           description,
           authorId
@@ -115,11 +118,13 @@ const Mutation = new GraphQLObjectType({
       type: JourneyType,
       args: {
         id: { type: new GraphQLNonNull(GraphQLID) },
+        date: { type: new GraphQLNonNull(GraphQLString) },
         title: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) }
       },
-      resolve(parent, { id, title, description }) {
+      resolve(parent, { id, date, title, description }) {
         let updateJourney = Journey.findByIdAndUpdate(id, {
+          date,
           title,
           description
         }).exec();

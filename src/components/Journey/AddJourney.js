@@ -29,6 +29,7 @@ const AuthorDataList = () => {
 };
 
 const AddJourney = () => {
+  let date;
   let title;
   let description;
   let authorId;
@@ -41,17 +42,29 @@ const AddJourney = () => {
           e.preventDefault();
           addJourney({
             variables: {
+              date: date.value,
               title: title.value,
               description: description.value,
               authorId: authorId.value
             },
             refetchQueries: [{ query: getJourneysQuery }]
           });
+          date.value = '';
           title.value = '';
           description.value = '';
           authorId.selectedIndex = 0;
         }}
       >
+        <div className="journey-new-item__block">
+          <label>Journey date:</label>
+          <input
+            type="date"
+            ref={node => {
+              date = node;
+            }}
+            required
+          />
+        </div>
         <div className="journey-new-item__block">
           <label>Journey title:</label>
           <input
