@@ -6,7 +6,7 @@ import AddJourney from './components/Journey/AddJourney';
 import './styles/_index.scss';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql'
+  uri: 'https://tranquil-mesa-38981.herokuapp.com/graphql'
 });
 
 class Root extends Component {
