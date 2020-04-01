@@ -11,3 +11,7 @@ Project displays list of journeys with title and description and basic functiona
 - in app folder
 - `$ npm install`
 - `$ npm start`
+
+### Demo version
+
+available on: https://laughing-yonath-a8004f.netlify.com
