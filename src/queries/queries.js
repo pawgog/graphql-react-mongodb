@@ -5,6 +5,7 @@ const getJourneysQuery = gql`
     journeys {
       date
       title
+      description
       id
     }
   }
@@ -88,5 +89,5 @@ export {
   getJourneysQuery,
   addJourneyMutation,
   updateJourneyMutation,
-  removeJourneyMutation
+  removeJourneyMutation,
 };
