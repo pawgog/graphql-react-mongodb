@@ -14,4 +14,4 @@ Project displays list of journeys with title and description and basic functiona
 
 ### Demo version
 
-available on: https://laughing-yonath-a8004f.netlify.com
+available under following link: [Site demo](https://laughing-yonath-a8004f.netlify.com)
